@@ -3,6 +3,9 @@
 <!-- Content_START -->
 
 ### 2024.09.19
+#### solidity
+1. denial of service攻击，例如在循环退款中，用户在receive()fallback()中写入导致合约回退的代码
+2. airdrop合约，ERC20，ERC721   
 #### Defi mooc
 ##### 去中心化金融体系和中心化金融体系
 ##### 区块链中密码学应用
