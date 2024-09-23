@@ -113,5 +113,7 @@ Promise.reject(new Error('发生错误！'))
 `await` 只能用于 `Promise`。如果你尝试 `await` 一个非 `Promise` 值，它会直接返回该值  
 `await` 使异步代码看起来更像同步代码，更容易理解和维护。 它避免了 .then() 链式调用的嵌套，使代码更简洁清晰  
 可以使用 try...catch 块来捕获 await 抛出的异常，从而处理 `Promise` 的 reject 情况  
+3. ethersjs
+  contract类，可对合约进行读取和交易
    
 <!-- Content_END -->
