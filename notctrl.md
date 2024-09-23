@@ -39,6 +39,79 @@
 ##### 智能合约
 ##### 传统金融
 ### 2024.09.23
-1. wtf solidty01-05
-   补充下solidity基础知识 
+#### 	WTF Academy
+1. wtf solidty01-05  
+   补充下solidity基础知识
+2. javascript异步  
+    #### `Promise`   
+     js提供promise对象做异步，Promise 对象有三种状态：pending（进行中）、fulfilled（已成功）和 rejected（已失败）。只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。  
+```js
+const p = new Promise((resolve, reject) => {
+  resolve('Hello, WTF JavaScript!')
+  throw new Error('发生错误！')
+})
+
+p.then(
+  (value) => {
+    console.log(value)
+  },
+  (error) => {
+    console.log(error)
+  }
+)
+
+// Hello, WTF JavaScript!
+```
+   #### Promise api
+   ##### Promise.all  
+   `Promise.all` 方法用于将多个 `Promise` 实例，包装成一个新的 `Promise` 实例。等待所有 Promise 完成（fulfilled）或其中任何一个 Promise 拒绝（rejected）。如果所有 Promise 都 fulfilled，Promise.all 返回一个新的 Promise，该 Promise resolve 为一个包含所有 Promise resolve 值的数组，按照传入 Promise.all 的顺序排列。如果任何一个 Promise rejected，Promise.all 返回一个新的 Promise，该 Promise 立即 rejected，rejected 的原因是第一个 rejected 的 Promise 的 reason。 这意味着，即使其他 Promise 后来 fulfilled，Promise.all 也不会考虑它们的结果。
+
+```js
+const p1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('Hello, WTF JavaScript!')
+  }, 1000)
+})
+
+const p2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('Hello, WTF HTML!')
+  }, 3000)
+})
+
+const p3 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('Hello, WTF CSS!')
+  }, 2000)
+})
+
+Promise.all([p1, p2, p3]).then((res) => {
+  console.log(res)
+})
+
+// ['Hello, WTF JavaScript!', 'Hello, WTF HTML!', 'Hello, WTF CSS!'] (3 秒后输出)
+```
+##### Promise.allSettled  
+  等待所有 Promise 都完成（settled），无论它们是 fulfilled 还是 rejected。返回一个新的 Promise，该 Promise resolve 为一个数组，数组的每一项都是一个对象，表示每个 Promise 的最终状态。 每个对象都有一个
+##### Promise.race
+  返回最先完成的，无论它们是 fulfilled 还是 rejected。
+##### Promise.any
+  传递最先fulfilled的promise实例返回值，若都rejected则返回reject对象
+##### Promise.resolve
+  用来创建一个 `resolved` 的 `Promise`  
+```js
+Promise.resolve('Hello, WTF JavaScript!')
+```
+##### Promise.reject
+  用来创建一个 `rejected` 的 `Promise`  
+```js
+Promise.reject(new Error('发生错误！'))
+```  
+#### async/await
+一个函数前面如果加上 `async` 关键字 ，那么该函数就会返回一个 `Promise`  
+`await` 会暂停 `async` 函数的执行，直到它右边的 Promise resolve 或 reject  
+`await` 只能用于 `Promise`。如果你尝试 `await` 一个非 `Promise` 值，它会直接返回该值  
+`await` 使异步代码看起来更像同步代码，更容易理解和维护。 它避免了 .then() 链式调用的嵌套，使代码更简洁清晰  
+可以使用 try...catch 块来捕获 await 抛出的异常，从而处理 `Promise` 的 reject 情况  
+   
 <!-- Content_END -->
