@@ -38,4 +38,7 @@
 #### Defi mooc
 ##### 智能合约
 ##### 传统金融
+### 2024.09.23
+1. wtf solidty01-05
+   补充下solidity基础知识 
 <!-- Content_END -->
