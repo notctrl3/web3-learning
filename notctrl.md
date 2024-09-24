@@ -115,5 +115,8 @@ Promise.reject(new Error('发生错误！'))
 可以使用 try...catch 块来捕获 await 抛出的异常，从而处理 `Promise` 的 reject 情况  
 3. ethersjs
   contract类，可对合约进行读取和交易
+### 2024.09.24
+#### 	WTF Academy
+1. wtf solidty06-10
    
 <!-- Content_END -->
