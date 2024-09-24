@@ -118,5 +118,32 @@ Promise.reject(new Error('发生错误！'))
 ### 2024.09.24
 #### 	WTF Academy
 1. wtf solidty06-10
-   
+2. ethersjs  
+   ##### wallet类
+   三种创建钱包实例方法
+   ##### 创建随机地址钱包
+      `````js
+      const wallet1 = ethers.Wallet.createRandom()
+      `````
+    ##### 通过私钥创建
+      `````js
+      const privateKey = '0x227dbb8586117d55284e26620bc76534dfbd2394be34cf4a09cb775d593b6f2b'  
+      const wallet2 = new ethers.Wallet(privateKey, provider)
+      `````
+    ##### 通过助记词创建
+      `````js
+      const wallet3 = ethers.Wallet.fromPhrase(mnemonic.phrase)
+      `````
+    创建交易  
+    ```js
+     // 创建交易请求，参数：to为接收地址，value为ETH数额
+    const tx = {
+        to: address1,
+        value: ethers.parseEther("0.001")
+    }
+    //发送交易，获得收据
+    const txRes = await wallet2.sendTransaction(tx)
+    const receipt = await txRes.wait() // 等待链上确认交易
+    console.log(receipt) // 打印交易的收据
+    ```
 <!-- Content_END -->
