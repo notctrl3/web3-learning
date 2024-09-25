@@ -146,4 +146,7 @@ Promise.reject(new Error('发生错误！'))
     const receipt = await txRes.wait() // 等待链上确认交易
     console.log(receipt) // 打印交易的收据
     ```
+ ### 2024.09.25
+ #### defi
+ AMM合约
 <!-- Content_END -->
