@@ -1,3 +1,5 @@
+### UniswapV2Pair源码
+
 ```js
 pragma solidity =0.5.16;
 
@@ -201,3 +203,8 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
     }
 }
 ```
+
+### 主要函数
+#### mint()  
+    通过给地址to铸造流通性代币增加流动性  
+    
