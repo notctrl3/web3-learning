@@ -1,5 +1,5 @@
 ## 源码
-``` 
+``` solidity
 pragma solidity =0.5.16;
 
 import './interfaces/IUniswapV2Factory.sol';
@@ -52,4 +52,7 @@ contract UniswapV2Factory is IUniswapV2Factory {
 ```
 
 ### 核心函数
+---
+#### createPair()
+uniswap采用create2创建UniswapV2Pair实例，主要因为工产合约通过两个代币地址的hash产生salt,UniswapV2Pair的创建字节码也固定，方便推测合约地址
 
