@@ -7,6 +7,7 @@
   - uniswap-v2-core
   - uniswap-v2-periphery
   - uniswap-lib
+  ---
 
   前三个是前端App项目，即[提供交易的项目](https://app.uniswap.org)，展示页面都写在`uniswap-interface`项目中，`uniswap-v2-sdk`
   和`uniswap-sdk-core`则是作为SDK而存在，`uniswap-interface`会引用到v2-sdk和sdk-core，通过 @uniswap/v2-sdk 和 @uniswap/sdk-core
