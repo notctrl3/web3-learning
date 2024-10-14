@@ -343,7 +343,7 @@ An address is 20 bytes (160 bits) and a uint256 is 32 bytes (256 bits), 256-160 
 3.零知识证明（ZKP） 
 原理是⽤⼾⽣成零知识证明，证明⾝份属性。验证者验证证明有效性⽽不获取具体⾝份信息，应⽤于Zcash、zk-SNARKs。 
 4.代币和访问控制 
-原理是使⽤代币或智能合约控制资源访问。⽤⼾通过⾝份验证后获得代币，使⽤代币访问资源，应⽤于ERC-725、ERC-735。
+原理是使⽤代币或智能合约控制资源访问。⽤⼾通过⾝份验证后获得代币，使⽤代币访问资源，应⽤于ERC-725、ERC-735。  
 1.Decentralized Identity (DID) 
 The principle is that the user generates a public-private key pair to create a unique DID, which is registered on blockchain. Users use the private key to sign information to prove their 
 identity, applied to Sovrin, uPort. 
