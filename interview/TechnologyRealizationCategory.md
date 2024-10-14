@@ -122,3 +122,121 @@ decoded back to the original parameters. However, due to padding, the encoded by
 Instead of adding padding, abi.encodePacked stitches all the parameters together. This ensures that the encoded byte array is as small as possible, but may lead to problems when 
 decoding because it is not possible to determine the exact position of each parameter. Instead of adding padding, abi.encodePacked stitches all the parameters together. This 
 ensures that the encoded byte array is as small as possible, but may lead to problems when decoding because it is not possible to determine the exact position of each parameter. 
+
+### 11、在权益证明之前后，block.timestamp发⽣了什么变化？
+### Whathappenedtoblock.timestampbeforeandafterproofofstake?
+
+在PoW协议中，block.timestamp表⽰矿⼯开始挖掘新块的时间戳。在PoS协议中，block.timestamp表⽰验证器开始验证新块的时间戳。因此，block.timestamp的含义在两种协议中都
+与块的创建时间有关，但在PoS协议中，它与验证器的⾏为有关，⽽不是矿⼯的⾏为有关。
+InthePoWprotocol,block.timestamprepresentsthetimestampwhentheminerstartsminingthenewblock.InthePoSprotocol,block.timestamprepresentsthetimestampwhenthe
+verifierstartsverifyingthenewblock.Thus,themeaningofblock.timestampisrelatedtothecreationtimeoftheblockinbothprotocols,butinthePoSprotocol,itisrelatedtothebehaviorofthevalidator,notthebehavioroftheminer.
+
+### 12、代理中的函数选择器冲突是什么，它是如何发⽣的？
+### Whatisafunctionselectorconflictinanagentandhowdoesitoccur?
+
+函数选择器是⼀个⽤于标识函数的哈希值。在Solidity中，当您调⽤⼀个合约中的函数时，您需要提供该函数的选择器。函数选择器由函数名称和参数类型组成，并使⽤Keccak-256哈希算法进⾏哈希
+处理。当您在代理合约中调⽤另⼀个合约的函数时，您需要将该函数的选择器传递给代理合约。如果您在代理合约中定义了具有相同名称和参数类型的函数，则会发⽣函数选择器冲突。这意味着当您调
+⽤代理合约中的函数时，Solidity⽆法确定您要调⽤哪个函数，因为它们具有相同的函数选择器。为了避免函数选择器冲突，您可以使⽤不同的函数名称或参数类型来定义代理合约中的函数。或者使⽤管
+理员校验来调⽤，只有管理员才调⽤代理合约定义的函数。
+Afunctionselectorisahashvalueusedtoidentifyafunction.InSolidity,whenyoucallafunctioninacontract,youneedtoprovideaselectorforthatfunction.Thefunction
+selectorconsistsofthenameofthefunctionandthetypeoftheargumentandishashedusingtheKeccak256hashalgorithm.Whenyoucallafunctionfromanothercontractinaproxy
+contract,youneedtopasstheselectorforthatfunctiontotheproxycontract.Afunctionselectorconflictoccursifyoudefinefunctionswiththesamenameandargumenttypesin
+theproxycontract.Thismeansthatwhenyoucallafunctionintheproxycontract,Soliditycannotdeterminewhichfunctionyouwanttocallbecausetheyhavethesamefunction
+selector.Toavoidfunctionselectorconflicts,youcandefinefunctionsintheproxycontractwithdifferentfunctionnamesorparametertypes.Oryoucanuseadministrator
+checksumstocallthem,sothatonlyadministratorscallthefunctionsdefinedintheproxycontract.
+
+### 13、payable函数对gas的影响是什么？
+### Howdoesthepayablefunctionaffectgas?
+
+payable函数是⼀种特殊类型的Solidity函数，它允许合约接受以太币作为⽀付。当您在Solidity中定义⼀个payable函数时，您可以在函数调⽤中包含以太币，并将其存储在合约的余额中。由于以太币
+是⼀种有价值的加密货币，因此在调⽤payable函数时需要⽀付⼀定的gas费⽤。这是因为在以太坊⽹络中，每个操作都需要消耗⼀定数量的gas，以保证⽹络的安全性和可靠性。
+当您在Solidity中使⽤payable函数时，需要注意以下⼏点：
+1.确保您的合约具有⾜够的余额来处理以太币⽀付。
+2.确保您的合约具有⾜够的gas来处理以太币⽀付。
+3.确保您的合约具有⾜够的安全性来处理以太币⽀付。
+ThepayablefunctionisaspecialtypeofSolidityfunctionthatallowscontractstoacceptEtheraspayment.WhenyoudefineapayablefunctioninSolidity,youcanincludeEtherin
+thefunctioncallandstoreitinthecontract'sbalance.SinceEtherisavaluablecryptocurrency,thereisagasfeethatneedstobepaidwhencallingapayablefunction.Thisis
+becauseintheEthernetwork,eachoperationconsumesacertainamountofgastokeepthenetworksecureandreliable.WhenyouusethepayablefunctioninSolidity,youneedtopay
+attentiontothefollowingpoints:
+ 1.MakesureyourcontracthasenoughbalancetohandleEtherpayments.
+ 2.MakesureyourcontracthasenoughgastoprocessEtherpayments.
+ 3.Makesureyourcontracthasenoughsecuritytohandleethereumpayments.
+
+### 14、函数参数中的memory和calldata有什么区别？
+### Whatisthedifferencebetweenmemoryandcalldatainfunctionarguments?
+
+memory：⽤于声明函数参数将被存储在内存中。内存中的数据只在函数执⾏期间存在，执⾏完毕后就被销毁。在函数内部，您可以使⽤memory关键字来创建临时变量，但是不能在函数之外使⽤
+它们。在函数调⽤期间，函数参数的值将从调⽤⽅复制到内存中，并在函数执⾏完毕后被销毁。
+calldata：⽤于声明函数参数将被存储在调⽤数据区域中。调⽤数据区域是⼀个不可修改的区域，⽤于保存函数参数。在函数内部，您可以使⽤calldata关键字来访问函数参数，但是不能在函数之外使
+⽤它们。在函数调⽤期间，函数参数的值将从调⽤⽅复制到调⽤数据区域中，并在函数执⾏完毕后被销毁。
+Memoryisusedtodeclarethatafunctionparameterwillbestoredinmemory.Thedatainmemoryexistsonlyforthedurationofthefunction'sexecutionandisdestroyedwhen
+executioniscomplete.Youcanusethememorykeywordtocreatetemporaryvariablesinsideafunction,butyoucannotusethemoutsidethefunction.Duringafunctioncall,thevaluesofthefunctionargumentsarecopiedfromthecallerintomemoryanddestroyedwhenthefunctionisfinishedexecuting.
+Thecalldataisusedtodeclarethatthefunctionparameterswillbestoredinthecalldataarea.Thecalldataareaisanonmodifiableareathatisusedtoholdfunctionparameters.
+Youcanusethecalldatakeywordtoaccessfunctionargumentsinsideafunction,butyoucannotusethemoutsidethefunction.Duringafunctioncall,thevaluesofthefunction
+parametersarecopiedfromthecallerintothecalldataareaanddestroyedwhenthefunctionisfinishedexecuting.
+
+### 15、UUPS和TransparentUpgradeableProxy模式之间有什么区别？
+### WhatisthedifferencebetweenUUPSandTransparentUpgradeableProxymode?
+
+在TransparentUpgradeableProxy模式中，代理合约只负责将所有调⽤转发到实现合约，并将实现合约的地址存储在代理合约的状态变量中。在升级合约时，新的实现合约将被部署到新的地址，然
+后将新的实现合约的地址存储在代理合约的状态变量中。这种⽅法的缺点是，每次升级合约时都需要部署⼀个新的代理合约。
+相⽐之下，UUPS代理模式使⽤了更加智能的⽅法。在UUPS代理模式中，代理合约只负责将所有调⽤转发到实现合约，并将实现合约的地址存储在代理合约的状态变量中。在升级合约时，只需要将
+新的实现合约的代码上传到现有的代理合约地址，⽽⽆需部署新的代理合约。这种⽅法的优点是，可以在不更改代理合约地址的情况下升级合约，从⽽避免了每次升级合约时都需要部署⼀个新的代理合
+约的问题。
+InTransparentUpgradeableProxymode,theproxycontractisonlyresponsibleforforwardingallcallstotheimplementationcontractandstoringtheaddressofthe
+implementationcontractintheproxycontract'sstatevariable.Atthetimeofupgradingthecontract,thenewimplementationcontractwillbedeployedtothenewaddressandthentheaddressofthenewimplementationcontractwillbestoredinthestatevariableoftheproxycontract.Thedisadvantageofthisapproachisthatanewagentcontractneedstobe
+deployedeachtimethecontractisupgraded.
+Incontrast,theUUPSproxymodelusesasmarterapproach.IntheUUPSproxymodel,theproxycontractisonlyresponsibleforforwardingallcallstotheimplementationcontractandzstoringtheaddressoftheimplementationcontractintheproxycontract'sstatevariable.Whenupgradingacontract,onlythecodeofthenewimplementationcontractneedstobe
+uploadedtotheaddressoftheexistingproxycontractwithoutdeployinganewproxycontract.Theadvantageofthisapproachisthatthecontractcanbeupgradedwithoutchangingtheproxycontractaddress,thusavoidingtheproblemofdeployinganewproxycontracteverytimethecontractisupgraded.
+
+### 16、ERC777代币存在什么危险?
+### WhatarethedangersofERC777tokens?
+
+ERC777代币是⼀种功能型代币，它在ERC20标准的基础上进⾏了改进，解决了⼀些ERC20标准存在的问题。ERC777代币的主要优势是它⽀持发送代币时携带额外的信息，同时也⽀持代币的操作员
+功能。此外，ERC777代币还可以通过ERC1820接⼝注册表合约来实现代币转账的监听，增强了代币的安全性.虽然ERC777代币有很多优点，但是它也存在⼀些潜在的危险。由于ERC777代币是⼀种相
+对较新的代币标准，因此它的⽣态系统相对较⼩，可能存在⼀些安全漏洞。此外，ERC777代币的操作员功能也可能会被滥⽤，导致代币被盗或者其他安全问题。因此，在使⽤ERC777代币时，需要谨慎
+选择代币合约，同时也需要注意代币的安全性.
+TheERC777TokenisafunctionaltokenthatimprovesontheERC20standardbyaddressingsomeoftheproblemsoftheERC20standard.ThemainadvantageoftheERC777Tokenisthatit
+supportstheabilitytosendtokenswithadditionalinformation,aswellassupportfortokenoperatorfunctions.Inaddition,ERC777tokenscanlistentotokentransfersthroughthe
+ERC1820interfaceregistrycontract,whichenhancesthesecurityoftokens.AlthoughtheERC777tokenhasmanyadvantages,italsohassomepotentialdangers.Since
+theERC777tokenisarelativelynewtokenstandard,ithasarelativelysmallecosystemandmayhavesomesecurityvulnerabilities.Inaddition,theoperatorfunctionofERC777
+tokenscanbeabused,leadingtotokentheftorothersecurityissues.Therefore,whenusingERC777tokens,youneedtochoosethetokencontractcarefullyandalsopayattentionto
+thesecurityofthetokens.
+
+### 17、OpenZeppelinERC721实现中的safeMint与mint有何不同？
+### WhatisthedifferencebetweensafeMintandmintintheOpenZeppelinERC721implementation?
+
+在OpenZeppelinERC721实现中，safeMint和mint都是⽤于创建新的ERC721代币的函数，但它们之间有⼀些区别。mint函数只是简单地创建⼀个新的ERC721代币，并将其分配给指定的地址。⽽
+safeMint函数则会在创建新的ERC721代币之前检查⽬标地址是否⽀持ERC721转移。如果⽬标地址不⽀持ERC721转移，则safeMint函数会抛出异常并阻⽌创建新的ERC721代币。因此，safeMint函数⽐
+mint函数更安全，因为它可以防⽌ERC721代币被锁定在不⽀持ERC721转移的合约中。 
+IntheOpenZeppelinERC721implementation,bothsafeMintandmintarefunctionsusedtocreatenewERC721tokens,buttherearesomedifferencesbetweenthem.Mintfunctionsimply
+createsanewERC721tokenandassignsittothespecifiedaddress.ThesafeMintfunction,ontheotherhand,checksifthetargetaddresssupportsERC721transfersbeforecreatinga
+newERC721token.IfthetargetaddressdoesnotsupportERC721transfers,thesafeMintfunctionthrowsanexceptionandpreventsthecreationofnewERC721tokens.Therefore,the
+safeMintfunctionissaferthanthemintfunctionbecauseitpreventsERC721tokensfrombeinglockedincontractsthatdonotsupportERC721transfers.
+
+### 18、ERC165作⽤于什么？
+### WhatdoesERC165do?
+
+ERC165是⼀个标准，⽤于检测和发布智能合约实现的接⼝。它标准化了如何识别接⼝，如何检测它们是否实现了ERC165或其他接⼝，以及合约将如何发布它们实现的接⼝。它可以帮助您查询合约实
+现的特定接⼝，以及更重要的是，该智能合约实现的版本。
+ERC165isastandardfordetectingandpublishinginterfacesimplementedbysmartcontracts.Itstandardizeshowinterfacesareidentified,howtodetectiftheyimplementERC165
+orotherinterfaces,andhowcontractswillpublishtheinterfacestheyimplement.Ithelpsyoutoquerythespecificinterfacethatacontractimplementsand,moreimportantly,the
+versionofthatsmartcontractimplementation.
+
+### 19、ERC721A如何减少铸造成本?有什么权衡？
+### HowdoesERC721Areducecastingcosts?Whatarethetradeoffs?
+
+ERC721A是⼀个改进的ERC721标准，旨在通过减少铸造成本来提⾼NFT的可扩展性。ERC721A通过引⼊批量铸造API来实现这⼀点，从⽽将铸造成本降低到O(1)的时间复杂度。与OZ的单独铸造⽅式不
+同，ERC721A的批量铸造API可以同时铸造多个NFT，⽽不需要循环调⽤单独的铸造⽅法。这种⽅法可以显著减少铸造成本，但需要权衡的是，它可能会降低NFT的安全性。
+ERC721AisanimprovedERC721standarddesignedtoimprovethescalabilityofNFTsbyreducingcastingcosts.ERC721AaccomplishesthisbyintroducingabatchcastingAPIthat
+reducescastingcoststoO(1)timecomplexity.UnlikeOZ'sindividualcastingapproach,ERC721A'sbatchcastingAPIallowsforthesimultaneouscastingofmultipleNFTswithoutthe
+needforcycliccallstoindividualcastingmethods.Thisapproachcansignificantlyreducecastingcosts,butthetradeoffisthatitmayreducethesecurityoftheNFTs.
+
+### 20、CompoundFinance如何计算利⽤率？
+### HowdoesCompoundFinancecalculateutilizationrates?
+
+CompoundFinance是⼀个算法化的、⾃治的利率协议，旨在为开发者解锁⼀系列开放式⾦融应⽤。该协议的利⽤率是指借款⼈从Compound借⼊资产的数量与抵押品价值的⽐率。具体地，它是通
+过将所有借款⼈的借款总额除以所有抵押品的总价值来计算的。这个⽐率越⾼，代表Compound的借款⼈越多，市场上的资⾦也越紧张。（从compound中借款，可通过增加抵押品价值降低借款利率）。
+CompoundFinanceisanalgorithmic,autonomousrateprotocoldesignedtounlockarangeofopenfinanceapplicationsfordevelopers.Theprotocol'sutilizationrateistheratioof
+theamountofassetsaborrowerborrowsfromCompoundtothevalueofthecollateral.Specifically,itiscalculatedbydividingthetotalamountborrowedbyallborrowersbythetotalvalueofallcollateral.Thehigherthisratio,themoreborrowersCompoundhasandthetighterthemarketis.(BorrowingfromCompoundreducestheborrowingratebyincreasingthe
+valueofthecollateral.)
