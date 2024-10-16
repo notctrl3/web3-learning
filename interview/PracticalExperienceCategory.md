@@ -5,14 +5,12 @@
 攻击中，攻击者截获了⼀个数字签名并将其重复使⽤，以便在未经授权的情况下执⾏某些操作。例如，攻击者可以使⽤重放攻击来多次执⾏某个交易，从⽽导致资⾦损失。为了防⽌签名重放攻击，您可以使⽤以下⽅法：
   使⽤时间戳或随机数来确保每个数字签名只能使⽤⼀次。 
   使⽤序列号来确保数字签名按顺序使⽤。 
-  使⽤加密协议来保护数字签名，例如TLS或SSL。 
-A signature replay attack is a network attack in which an attacker spoofs a system by reusing digital signatures that have already been verified. Digital signature is a technique used to verify 
-data integrity and authentication, which uses public key cryptography to generate and verify signatures. In a signature replay attack, an attacker intercepts a digital signature and reuses it to 
-perform certain actions without authorization. For example, an attacker could use a replay attack to execute a transaction multiple times, resulting in a loss of funds. 
+  使⽤加密协议来保护数字签名，例如TLS或SSL。   
+A signature replay attack is a network attack in which an attacker spoofs a system by reusing digital signatures that have already been verified. Digital signature is a technique used to verify data integrity and authentication, which uses public key cryptography to generate and verify signatures. In a signature replay attack, an attacker intercepts a digital signature and reuses it to perform certain actions without authorization. For example, an attacker could use a replay attack to execute a transaction multiple times, resulting in a loss of funds. 
 To prevent signature replay attacks, you can use the following methods: 
- Use timestamps or random numbers to ensure that each digital signature can be used only once. 
- Use serial numbers to ensure that digital signatures are used sequentially. 
- Use a cryptographic protocol to protect digital signatures, such as TLS or SSL. 
+  Use timestamps or random numbers to ensure that each digital signature can be used only once. 
+  Use serial numbers to ensure that digital signatures are used sequentially. 
+  Use a cryptographic protocol to protect digital signatures, such as TLS or SSL. 
 
 ### 2、描述三种存储 gas 成本类型。 
 ### Describe the three storage gas cost types. 
@@ -37,8 +35,7 @@ compared to stored variables because they only need to be initialized once at co
 约状态变量。
 It is common practice to use constructors to initialize contract state variables, but this makes it impossible to upgrade a contract's state variables. This is because when upgrading a 
 contract, the new contract code will be deployed to a new address and the old contract state variables will not be able to be passed to the new contract. Therefore, in order to enable 
-contract state variables to be upgraded, an initialization function should be used to initialize the contract state variables instead of a constructor. The initialization function can be called 
-anytime after the contract has been deployed, so it is possible to reinitialize the contract state variables when upgrading the contract. 
+contract state variables to be upgraded, an initialization function should be used to initialize the contract state variables instead of a constructor. The initialization function can be called anytime after the contract has been deployed, so it is possible to reinitialize the contract state variables when upgrading the contract. 
 
 ### 4、如果合约通过 delegate call 调⽤⼀个空地址或之前已⾃毁的合约，会发⽣什么？如果是常规调⽤⽽不是 delegatecall 会发⽣什么? 
 ### What happens if a contract calls a null address or a previously self-destructed contract via delegatecall? What happens if it is a regular call instead of a delegate call? 
@@ -56,16 +53,14 @@ delegate call will cause the transaction to fail and be rolled back because you 
 If you make a delegate call to a function that rolls back, the delegate call returns false and no state changes occur. If it's a regular call instead of a delegate call, the transaction 
 fails and rolls back because you can't call a non-existing contract or a self-destructing contract. 
 
-### 6、乘以或除以⼆的倍数的 gas ⾼效替代⽅法是什么？ 
+### 6、乘以或除以⼆的倍数的 gas ⾼效替代⽅法是什么？  
 ### What is the gas efficient alternative to multiplying or dividing by a multiple of two? 
 
 在Solidity中，将⼀个数乘以或除以2的倍数可以通过移位运算来实现，这⽐使⽤乘法或除法运算更⾼效。具体来说，将⼀个数左移n位相当于将它乘以2的n次⽅，⽽将⼀个数右移n位相当于将它除以
 2的n次⽅。例如，将⼀个数除以8可以通过将它右移3位来实现，⽽将⼀个数乘以16可以通过将它左移4位来实现。在Solidity 0.8.3及更⾼版本中，编译器会⾃动将乘法和除法运算转换为移位运算，从⽽提
 ⾼代码的效率。
 In Solidity, multiplying or dividing a number by a multiple of two can be accomplished by shifting operations, which is more efficient than using multiply or divide operations. Specifically, 
-shifting a number n places to the left is equivalent to multiplying it by 2 to the nth power, while shifting a number n places to the right is equivalent to dividing it by 2 to the nth power. For 
-example, dividing a number by 8 can be accomplished by shifting it 3 places to the right, while multiplying a number by 16 can be accomplished by shifting it 4 places to the left. In Solidity 
-0.8.3 and higher, the compiler automatically converts multiplication and division operations to shifts, thus improving the efficiency of the code. 
+shifting a number n places to the left is equivalent to multiplying it by 2 to the nth power, while shifting a number n places to the right is equivalent to dividing it by 2 to the nth power. For example, dividing a number by 8 can be accomplished by shifting it 3 places to the right, while multiplying a number by 16 can be accomplished by shifting it 4 places to the left. In Solidity 0.8.3 and higher, the compiler automatically converts multiplication and division operations to shifts, thus improving the efficiency of the code. 
 
 ### 7、哪些操作会部分退还 gas？ 
 ### What operations partially refund gas? 
@@ -84,7 +79,7 @@ RETURN operation: a portion of gas is refunded if returned from a function.
 SELFDESTRUCT operation: the rest of the gas is refunded if the contract self-destructs. 
 Note that the amount of returned gas for these operations is fixed, depending on the type of operation and the environment in which it is executed. 
 
-### 8、如果代理对 A 进⾏ delegate call，⽽ A 执⾏ address(this).balance，返回的是代理的余额还是 A 的余额？
+### 8、如果代理对 A 进⾏ delegate call，⽽ A 执⾏ address(this).balance，返回的是代理的余额还是 A 的余额？  
 ### If the agent makes a delegate call to A and A executes address(this).balance, is the balance returned for the agent or for A?  
 
 返回的是代理的余额。因为在 delegate call 中，调⽤的A会共享代理合约的存储空间，因此 address(this) 将返回代理合约的地址，⽽不是被调⽤合约的地址。 
@@ -96,8 +91,7 @@ not the address of the called contract.
 
 Solidity不⽀持浮点数运算是因为浮点数运算需要⼤量的计算资源，⽽以太坊虚拟机的计算资源是有限的。此外，浮点数运算可能会导致精度丢失和舍⼊错误，这可能会影响智能合约的正确性和安全
 性。为了避免这些问题，Solidity使⽤整数运算来代替浮点数运算。如果您需要进⾏浮点数运算，可以使⽤⼀些库，如FixedPoint.sol，来模拟浮点数运算。这些库使⽤整数运算来实现浮点数运算，从⽽避
-免了精度丢失和舍⼊错误的问题。
+免了精度丢失和舍⼊错误的问题。  
 Solidity does not support floating-point arithmetic because floating-point arithmetic requires a large amount of computational resources, which are limited in the Ethernet virtual 
 machine. In addition, floating point arithmetic can lead to precision loss and rounding errors, which can affect the correctness and security of smart contracts. To avoid these problems, 
-Solidity uses integer operations instead of floating-point operations. If you need to perform floating point operations, you can use libraries such as Fixed Point.sol to simulate floating point 
-operations. These libraries use integer arithmetic to implement floating point operations, thus avoiding precision loss and rounding errors. 
+Solidity uses integer operations instead of floating-point operations. If you need to perform floating point operations, you can use libraries such as Fixed Point.sol to simulate floating point operations. These libraries use integer arithmetic to implement floating point operations, thus avoiding precision loss and rounding errors. 
