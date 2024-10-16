@@ -2,9 +2,8 @@
 ### What kind of special CALL is needed for proxies to work? 
 
 Solidity中有三种调⽤函数可以实现合约间的函数调⽤，它们分别是call、delegatecall和callcode。其中，delegatecall是⼀种特殊的调⽤⽅式，它允许我们在主合约的上下⽂中加载和调⽤另
-⼀个合约的代码。被调⽤合约的代码被执⾏，但被调⽤合约所做的任何状态改变实际上是在主合约的存储中进⾏的，⽽不是在被调⽤合约的存储中。
-There are three call functions in Solidity that enable function calls between contracts, they are call, delegatecall, and callcode. Delegatecall is a special call that allows us to load and call another contract's code in the context of the master contract. The called contract's code is 
-executed, but any state changes made by the called contract are actually made in the master contract's storage, not in the called contract's storage. 
+⼀个合约的代码。被调⽤合约的代码被执⾏，但被调⽤合约所做的任何状态改变实际上是在主合约的存储中进⾏的，⽽不是在被调⽤合约的存储中。  
+There are three call functions in Solidity that enable function calls between contracts, they are call, delegatecall, and callcode. Delegatecall is a special call that allows us to load and call another contract's code in the context of the master contract. The called contract's code is executed, but any state changes made by the called contract are actually made in the master contract's storage, not in the called contract's storage. 
 
 ### 2、在 EIP-1559 之前，如何计算以太坊交易的成本？ 
 ### Before EIP-1559, how was the cost of an Ether transaction calculated? 
@@ -14,8 +13,7 @@ executed, but any state changes made by the called contract are actually made in
 由交易的发送者设置。
 Prior to EIP-1559, the cost of an Ether transaction was determined by miners through an auction mechanism. Miners would select the highest bidding transaction and include it in the 
 next block. The cost of a transaction is determined by two factors: the Gas Price and the Gas Limit. Gas Priceis a unit of measurement in the Ether network that measures the complexity of a 
-transaction.The Gas Limit is the maximum amount of Gas that can be used for a transaction. The cost of a transaction is equal to the Gas Price multiplied by the Gas Limit.Therefore, the cost of a 
-transaction depends on the values of Gas Price and Gas Limit, which are set by the sender of the transaction. 
+transaction.The Gas Limit is the maximum amount of Gas that can be used for a transaction. The cost of a transaction is equal to the Gas Price multiplied by the Gas Limit.Therefore, the cost of a transaction depends on the values of Gas Price and Gas Limit, which are set by the sender of the transaction. 
 
 ### 3、ETH转账的底层原理是什么？ 
 ### What is the underlying principle of ETH transfers? 
@@ -32,18 +30,16 @@ transaction depends on the values of Gas Price and Gas Limit, which are set by t
   8.在客⼾端上调⽤“SendTransaction”将已签名的事务⼴播到整个⽹络。这将向⽹络中的所有节点发送交易，并等待矿⼯将其打包到区块中。
 The underlying principle is the modification of the data on the chain, which can be answered in a little more detail is what happens during the transaction. 
 Here is the detailed process of ETH transfer: 
-1. Connect to the ethereum network and load your private key. You can use the go-
-ethereum client to do this. 
-2. Get a random number (nonce) of sending accounts. Each new transaction requires a nonce, which is a number that is only used once. If it is a new account sending the transaction, 
+ 1. Connect to the ethereum network and load your private key. You can use the go-ethereum client to do this. 
+ 2. Get a random number (nonce) of sending accounts. Each new transaction requires a nonce, which is a number that is only used once. If it is a new account sending the transaction, 
 the random number will be "0". 
-3. Convert ETH to wei, as this is the unit of currency used by the Ethernet blockchain. Ethernet supports up to 18 decimal places, so 1 ETH is 1 plus 18 zeros. 
-4. Set the amount of ETH you want to transfer, as well as the gas limit and gas price. The gas limit should be capped at "21000" units and the gas price must be set in wei. 
-5. You need to determine to which address you want to send the ETH. This is the receiving address. 
-6. Next, you need to generate an unsigned Ether transaction. This function needs to receive the nonce, address, value, gas cap, gas price and optionally send data. The data field for sending 
-ETH is "nil" (nil is the go language for null). 
-7. Sign the transaction using the sender's private key. To do this, you can use the SignTx method provided by the go-ethereum client, which accepts an unsigned transaction and the 
+ 3. Convert ETH to wei, as this is the unit of currency used by the Ethernet blockchain. Ethernet supports up to 18 decimal places, so 1 ETH is 1 plus 18 zeros. 
+ 4. Set the amount of ETH you want to transfer, as well as the gas limit and gas price. The gas limit should be capped at "21000" units and the gas price must be set in wei. 
+ 5. You need to determine to which address you want to send the ETH. This is the receiving address. 
+ 6. Next, you need to generate an unsigned Ether transaction. This function needs to receive the nonce, address, value, gas cap, gas price and optionally send data. The data field for sending ETH is "nil" (nil is the go language for null). 
+ 7. Sign the transaction using the sender's private key. To do this, you can use the SignTx method provided by the go-ethereum client, which accepts an unsigned transaction and the 
 private key you constructed earlier. 
-8. Call "Send Transaction" on the client to broadcast the signed transaction to the entire network. This sends the transaction to all nodes in the network and waits for the miner to 
+ 8. Call "Send Transaction" on the client to broadcast the signed transaction to the entire network. This sends the transaction to all nodes in the network and waits for the miner to 
 package it into a block. 
 
 ### 4、在区块链上创建随机数的挑战是什么？ 
@@ -97,8 +93,8 @@ transferFrom(address sender, address recipient, uint256 amount)
 这⾥补充⼀个：在solidity0.4之前的合约，也可以直接接收ETH。 
 ①Send the self-destructed eth to the target contract by self-destructing another contract. 
 ②Set the recipient of the block reward fee from mining to the target contract address. 
-③Set the address of the Beacon chain that will be used for withdrawals after pledging as 
-the target contract's address. Here is one more thing: the contracts before solidity0.4 can also receive ETH directly. 
+③Set the address of the Beacon chain that will be used for withdrawals after pledging as the target contract's address. 
+Here is one more thing: the contracts before solidity0.4 can also receive ETH directly. 
 
 ### 9、代理合约中的存储冲突是什么？ 
 ### What are storage conflicts in proxy contracts? 
@@ -126,8 +122,7 @@ ensures that the encoded byte array is as small as possible, but may lead to pro
 ### 11、在权益证明之前后，block.timestamp 发⽣了什么变化？ 
 ### What happened to block.timestamp before and after proof of stake? 
 
-在PoW协议中，block.timestamp表⽰矿⼯开始挖掘新块的时间戳。在PoS协议中，block.timestamp表⽰验证器开始验证新块的时间戳。因此，block.timestamp的含义在两种协议中都
-与块的创建时间有关，但在PoS协议中，它与验证器的⾏为有关，⽽不是矿⼯的⾏为有关。 
+在PoW协议中，block.timestamp表⽰矿⼯开始挖掘新块的时间戳。在PoS协议中，block.timestamp表⽰验证器开始验证新块的时间戳。因此，block.timestamp的含义在两种协议中都与块的创建时间有关，但在PoS协议中，它与验证器的⾏为有关，⽽不是矿⼯的⾏为有关。 
 In the PoW protocol, block.timestamp represents the timestamp when the miner starts mining the new block. In the PoS protocol, block.timestamp represents the timestamp when the 
 verifier starts verifying the new block. Thus, the meaning of block.timestamp is related to the creation time of the block in both protocols, but in the PoS protocol, it is related to the behavior of the validator, not the behavior of the miner. 
 
@@ -158,9 +153,9 @@ The payable function is a special type of Solidity function that allows contract
 the function call and store it in the contract's balance. Since Ether is a valuable cryptocurrency, there is a gas fee that needs to be paid when calling a payable function. This is 
 because in the Ether network, each operation consumes a certain amount of gas to keep the network secure and reliable. When you use the payable function in Solidity, you need to pay 
 attention to the following points: 
- 1. Make sure your contract has enough balance to handle Ether payments. 
- 2. Make sure your contract has enough gas to process Ether payments. 
- 3. Make sure your contract has enough security to handle ethereum payments. 
+  1. Make sure your contract has enough balance to handle Ether payments. 
+  2. Make sure your contract has enough gas to process Ether payments. 
+  3. Make sure your contract has enough security to handle ethereum payments. 
 
 ### 14、函数参数中的 memory 和 calldata 有什么区别？ 
 ### What is the difference between memory and calldata in function arguments? 
