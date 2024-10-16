@@ -5,14 +5,14 @@
 
 Private can only be used within the current contract, subcontract inheritance can not be called; internal can be called by the current contract and subcontracts; public contract internal 
 and external and subcontracts can be called; external only provided to the external call, the contract can not be called within the contract, the contract interface functions should be 
-declared as external. 
+declared as external.   
 私有只能当前合约内部使⽤，⼦合约继承也不能调⽤；内部可以当前合约和⼦合约调⽤；公共合约内部外部和⼦合约都可以调⽤；外部只提供给外部调⽤，合约内部不能调⽤，合约接⼝的函数都要声明成external。 
 
 ### 2.Approximately how big can the smart contract size be? 
 ### 智能合约⼤⼩⼤约可以有多⼤?   
 
 After Shanghai upgraded, the realisation of EIP-3860 is 48KB, the original 24KB, expanding the amount of code to solve the problem of high gas fees between contracts calling each other 
-after splitting the previous complex contract. 
+after splitting the previous complex contract.   
 上海升级后，实现EIP-3860是48KB，原来24KB，扩⼤代码量解决以前复杂合约拆分后合约之间互相调⽤的⾼gas费问题。 
 
 ### 3.What is the difference between create and create2? 
@@ -21,7 +21,7 @@ after splitting the previous complex contract.
 CREATE and CREATE2 are two important opcodes in Solidity that can be used to deploy smart contracts, but there are some differences between them. The CREATE opcode calculates 
 the address of a new contract by hashing the sender's address and the nonce value, while the CREATE2 opcode uses a more complex formula that includes parameters such as the sender's 
 address, a random number, and a bytecode to calculate the address of a new contract. The main advantage of the CREATE2 opcode is that it can predict the address of a contract before it is 
-deployed, which is useful in scenarios where the address of the contract is known in advance. 
+deployed, which is useful in scenarios where the address of the contract is known in advance.    
 CREATE和CREATE2是Solidity中的两个重要的操作码，它们都可以⽤于部署智能合约，但是它们之间有⼀些区别. CREATE操作码通过对发送者地址和nonce值进⾏哈希运算来计算新合约的地址，⽽
 CREATE2操作码则使⽤了更复杂的公式来计算新合约的地址，这个公式包括发送者地址、随机数、字节码等参数. CREATE2操作码的主要优点是，它可以在部署合约之前预测合约的地址，这对于需要提前
 知道合约地址的场景⾮常有⽤。
@@ -29,9 +29,7 @@ CREATE2操作码则使⽤了更复杂的公式来计算新合约的地址，这�
 ### 4.What are the major changes to arithmetic operations in Solidity version 0.8.0? 
 ### Solidity 0.8.0 版本对算术运算有什么重⼤变化？ 
 As of Solidity version 0.8.0, arithmetic operations are rolled back on underflow and overflow. This means that if the result of an arithmetic operation is out of range for its datatype, 
-the operation will fail and roll back. Prior to Solidity 0.8.0, integer underflows and overflows were allowed and did not result in an error. To avoid this, Solidity 0.8.0 turned on arithmetic 
-operation checking by default, and if you need to use the old way of doing arithmetic 
-operations, you can use the unchecked{...} statement block 
+the operation will fail and roll back. Prior to Solidity 0.8.0, integer underflows and overflows were allowed and did not result in an error. To avoid this, Solidity 0.8.0 turned on arithmetic operation checking by default, and if you need to use the old way of doing arithmetic operations, you can use the unchecked{...} statement block 
 从Solidity 0.8.0版本开始，算术运算会在下溢和上溢时回滚。这意味着，如果⼀个算术运算的结果超出了其数据类型的范围，那么这个运算将会失败并回滚。在Solidity 0.8.0之前，整数下溢和上溢
 是允许的，不会导致错误，为了避免这种情况，Solidity 0.8.0默认开启了算术运算检查，如果您需要使⽤旧的算术运算⽅式，可以使⽤unchecked{R}语句块。 
 
@@ -150,27 +148,27 @@ tokens.
 ### How to convert ERC1155 tokens to non-homogenized tokens? 
 
 ERC1155代币是⼀种可替代和不可替代的代币，可以在同⼀合约中管理多个资产。ERC721代币是⼀种⾮可替代代币，每个代币都是唯⼀的。因此，将ERC1155代币转换为ERC721代币需要将每个
-ERC1155代币转换为⼀个唯⼀的ERC721代币。 
-  要将ERC1155代币转换为ERC721代币，您需要执⾏以下步骤： 
+ERC1155代币转换为⼀个唯⼀的ERC721代币。  
+要将ERC1155代币转换为ERC721代币，您需要执⾏以下步骤：  
   1.创建⼀个新的ERC721合约。 
   2.为每个ERC1155代币创建⼀个新的ERC721代币。 
   3.将ERC1155代币的所有权转移到新的ERC721代币。 
   4.销毁原始ERC1155代币。 
 ERC1155 tokens are fungible and non-fungible tokens that can be used to manage multiple assets in the same contract. ERC721 tokens are non-fungible tokens and each token is unique. 
-Therefore, converting ERC1155 tokens to ERC721 tokens requires converting each ERC1155 token to a unique ERC721 token. 
-To convert ERC1155 tokens to ERC721 tokens, you need to perform the following steps: 
-1. Create a new ERC721 contract. 
-2. Create a new ERC721 token for each ERC1155 token. 
-3. Transfer ownership of the ERC1155 tokens to the new ERC721 tokens.
-4. Destroy the original ERC1155 tokens. 
+Therefore, converting ERC1155 tokens to ERC721 tokens requires converting each ERC1155 token to a unique ERC721 token.  
+To convert ERC1155 tokens to ERC721 tokens, you need to perform the following steps:  
+  1. Create a new ERC721 contract. 
+  2. Create a new ERC721 token for each ERC1155 token. 
+  3. Transfer ownership of the ERC1155 tokens to the new ERC721 tokens.
+  4. Destroy the original ERC1155 tokens. 
 
 ### 19、修饰符（modifier）的作⽤是什么？ 
 ### What is the purpose of a modifier? 
 
 modifier是⼀种函数修饰符，⽤于声明⼀个函数修改器。函数修改器的作⽤与Spring中的切⾯功能很相似，当它作⽤于⼀个函数上，可以在函数执⾏前或后（依赖于具体实现）预先执⾏modifier中
-的逻辑，以增强其功能。使⽤modifier可以将⼀些通⽤的操作提取出来，提⾼编码效率，降低代码耦合性。
+的逻辑，以增强其功能。使⽤modifier可以将⼀些通⽤的操作提取出来，提⾼编码效率，降低代码耦合性。  
 modifier可以⽤于控制函数的访问权限和⾏为。例如，如果您希望只有合约的所有者才能访问某个函数，您可以将该函数标记为private，并使⽤modifier来检查调⽤者是否为合约的所有者。如果调
-⽤者不是合约的所有者，则函数将停⽌执⾏并回滚所有更改。这可以帮助保护合约免受未经授权的访问和攻击。
+⽤者不是合约的所有者，则函数将停⽌执⾏并回滚所有更改。这可以帮助保护合约免受未经授权的访问和攻击。  
 A modifier is a function modifier used to declare a function modifier. The role of function modifiers is very similar to that of Spring's faceted functionality. When it is applied to a function, 
 the logic in the modifier can be pre-executed before or after the function is executed (depending on the specific implementation) to enhance its functionality. The use of modifier can be 
 extracted out of some common operations to improve coding efficiency and reduce code coupling. 
@@ -190,12 +188,9 @@ Maximum 2^256-1. Why minus 1? 0 takes up a space, and the 256-bit representation
 ### What are variable and fixed interest rates? 
 
 固定利率是指在贷款期间内，贷款利率保持不变。⽽浮动利率是指贷款利率会随着市场利率的变化⽽变化。浮动利率通常基于某个基准利率，例如央⾏基准利率或LIBOR（伦敦银⾏间同业拆借利
-率）。如果基准利率上升，贷款利率也会上升，反之亦然。send函数的gas限制也为2300 gas，但它返回⼀个布尔值，指⽰转账是否成功。如果转账失败，它将返回false。但是，如果接收⽅合约没有实现fallback函数，或者fallback函数消耗的gas超过了
-2300，那么转账将失败并回滚所有更改。 
+率）。如果基准利率上升，贷款利率也会上升，反之亦然。send函数的gas限制也为2300 gas，但它返回⼀个布尔值，指⽰转账是否成功。如果转账失败，它将返回false。但是，如果接收⽅合约没有实现fallback函数，或者fallback函数消耗的gas超过了2300，那么转账将失败并回滚所有更改。  
 A fixed interest rate means that the interest rate on the loan remains the same for the duration of the loan. A floating rate is when the interest rate on the loan changes in response to 
-changes in market interest rates. Floating interest rates are usually based on a benchmark rate, such as the central bank's prime rate or LIBOR (London Interbank Offered Rate). If the prime rate 
-rises, the lending rate will also rise, and vice versa. The send function also has a gas limit of 2300 gas, but it returns a boolean indicating whether the transfer was successful. If the transfer fails, it returns false, but if the recipient 
-contract does not implement a fallback function, or if the fallback function consumes more than 2300 gas, then the transfer fails and all changes are rolled back. 
+changes in market interest rates. Floating interest rates are usually based on a benchmark rate, such as the central bank's prime rate or LIBOR (London Interbank Offered Rate). If the prime rate rises, the lending rate will also rise, and vice versa. The send function also has a gas limit of 2300 gas, but it returns a boolean indicating whether the transfer was successful. If the transfer fails, it returns false, but if the recipient contract does not implement a fallback function, or if the fallback function consumes more than 2300 gas, then the transfer fails and all changes are rolled back. 
 
 ### 22、transfer 和 send 之间有什么区别？为什么不应该使⽤它们？ 
 ### What is the difference between transfer and send? Why should they not be used? 
@@ -206,11 +201,10 @@ transfer函数的gas限制为2300 gas，这意味着如果接收⽅合约没有�
 该使⽤call函数来转移以太币。call函数没有gas限制，可以向任何地址发送以太币，并且可以指定要发送的gas数量。但是，您应该⼩⼼使⽤call函数，因为它可能会导致⼀些安全问题，例如重⼊攻击。 
 The transfer function has a gas limit of 2300 gas, which means that if the recipient contract does not implement a fallback function, or if the fallback function consumes more than 2300 
 gas, the transfer will fail and all changes will be rolled back. This prevents reentry attacks, but can also lead to problems such as not being able to send Ether to some contracts. the send 
-function also has a gas limit of 2300 gas, but it returns a boolean indicating whether the transfer was successful or not. If the transfer fails, it returns false. however, if the recipient contract does 
-not implement the fallback function, or if the fallback function consumes more than 2300 gas, the transfer will fail and all changes will be rolled back. 
+function also has a gas limit of 2300 gas, but it returns a boolean indicating whether the transfer was successful or not. If the transfer fails, it returns false. however, if the recipient contract does not implement the fallback function, or if the fallback function consumes more than 2300 gas, the transfer will fail and all changes will be rolled back. 
 Due to these limitations, the transfer and send functions have been deemed unsafe and therefore they should not be used. Instead, you should use the call function to transfer Ether. 
 call functions do not have a gas limit, can send Ether to any address, and can specify the amount of gas to send. However, you should be careful with the call function as it can lead to some 
-security issues, such as reentry attacks. 
+security issues, such as reentry attacks.  
 
 ### 23、如何在 Solidity 中编写节省gas的⾼效循环？ 
 ### How to write efficient loops that save gas in Solidity?   
@@ -222,11 +216,10 @@ security issues, such as reentry attacks.
 5.避免使⽤复杂的嵌套循环。 
 6.使⽤constant和immutable关键字：如果您需要在循环中使⽤常量或不可变变量，请使⽤constant和immutable关键字来声明它们。 
 1. Avoid infinite loops. 
-2. Avoid repeated calculations: to calculate the same value multiple times, you should store 
-the value in a variable and reuse the variable when needed. 
+2. Avoid repeated calculations: to calculate the same value multiple times, you should store the value in a variable and reuse the variable when needed. 
 3. Avoid using expensive operations: such as division and modulo. Try using cheaper operations instead of them. 
 4. Avoid large arrays: If possible, you should use maps or other data structures instead of arrays. 
-5. avoid complex nested loops. 
+5. Avoid complex nested loops. 
 6. Use the constant and immutable keywords: if you need to use constants or immutable variables in a loop, declare them using the constant and immutable keywords. 
 
 ### 24、uint8、uint32、uint64、uint128、uint256 都是有效的 uint ⼤⼩。还有其他的吗？ 
@@ -246,8 +239,7 @@ int32, int64, int128, and int256, which represent 8-bit, 16-bit, 32-bit, 64-bit,
 块⼤⼩，从⽽提⾼以太坊的交易效率和可靠性。
 In Ethernet's EIP-1559 protocol, BASEFEE is dynamically adjusted by the Ethernet network based on transaction demand and block size, and is calculated using an algorithm called the "Base Fee 
 Tracker". The algorithm dynamically adjusts BASEFEE based on the current block's transaction demand and block size to ensure that transactions are recognized in a reasonable amount of 
-time. Specifically, the BASEFEE tracker calculates a target BASEFEE based on the transaction demand and block size of the current block. If the current BASEFEE is higher than the target base fee, 
-then the BASEFEE will decrease. If the current BASEFEE is lower than the target base fee, then the BASEFEE will increase. This dynamic adjustment mechanism ensures that BASEFEE always 
+time. Specifically, the BASEFEE tracker calculates a target BASEFEE based on the transaction demand and block size of the current block. If the current BASEFEE is higher than the target base fee, then the BASEFEE will decrease. If the current BASEFEE is lower than the target base fee, then the BASEFEE will increase. This dynamic adjustment mechanism ensures that BASEFEE always 
 reflects the current transaction demand and block size, thus improving the efficiency and reliability of Ethernet transactions. 
 
 ### 26、冷读（cold read）和热读（warm read）之间有什么区别？ 
@@ -256,8 +248,7 @@ reflects the current transaction demand and block size, thus improving the effic
 冷读（cold read）和热读（warm read）是两种不同的访问存储变量的⽅式。冷读是指第⼀次读取存储变量时，需要从存储中读取变量的值，这需要较⾼的gas费⽤。⽽热读是指在第⼀次读取存储变
 量之后，再次读取存储变量时，可以从缓存中读取变量的值，这需要较低的gas费⽤。热读和冷读是由Ethereum虚拟机（EVM）⾃动处理的。 
 Cold read and warm read are two different ways of accessing stored variables. Cold read means that the first time you read a stored variable, you need to read the value of the variable 
-from the storage, which requires a higher gas cost. Whereas, warm read means that after reading the storage variable for the first time, when reading the storage variable again, the value of the 
-variable can be read from the cache, which requires a lower gas cost. Warm and cold reads are handled automatically by the Ethereum Virtual Machine (EVM). 
+from the storage, which requires a higher gas cost. Whereas, warm read means that after reading the storage variable for the first time, when reading the storage variable again, the value of the variable can be read from the cache, which requires a lower gas cost. Warm and cold reads are handled automatically by the Ethereum Virtual Machine (EVM). 
 
 ### 27、AMM 如何定价资产？ 
 ### How does AMM price assets? 
@@ -275,10 +266,10 @@ Through the constant product algorithm, a * b = k ,the number of b's needed to c
   payable：指定函数可以接受以太币作为⽀付。 
 In Solidity, an interface is an abstract contract that defines the functions that the contract should implement. Functions in an interface have no implementation, only a function signature. 
 The function signature consists of the function name, parameter type and return type. Functions in interfaces can use the following modifiers:
-external: specifies that the function can only be called from outside the contract. 
-view: Specifies that the function does not modify the state of the contract. 
-pure: specifies that the function will neither modify nor read the contract state. 
-payable: Specifies that the function can accept Ether as payment. 
+ external: specifies that the function can only be called from outside the contract. 
+ view: Specifies that the function does not modify the state of the contract. 
+ pure: specifies that the function will neither modify nor read the contract state. 
+ payable: Specifies that the function can accept Ether as payment. 
 
 ### 29、根据 Solidity ⻛格指南，函数应该如何排序? 
 ### How should functions be sorted according to the Solidity style guide? 
@@ -293,13 +284,13 @@ payable: Specifies that the function can accept Ether as payment.
   私有函数(private) 
 在⼀个分组中，把 view 和 pure 函数放在最后。 
 Functions should be grouped according to their visibility and order: 
-constructor 
-receive function (if it exists) 
-fallback function (if present) 
-external function (if present) 
-public function (public) 
-internal function (internal) 
-private function (private) 
+ constructor 
+ receive function (if it exists) 
+ fallback function (if present) 
+ external function (if present) 
+ public function (public) 
+ internal function (internal) 
+ private function (private) 
 In a grouping, put the view and pure functions last. 
 
 ### 30、根据 Solidity ⻛格指南，函数修饰符应该如何排序？ 
@@ -312,10 +303,10 @@ In a grouping, put the view and pure functions last.
   重载（Override） 
   ⾃定义修改器（Custom modifiers） 
 The order of function modifiers should be. 
-Visibility 
-Mutability 
-Virtual 
-Override 
+  Visibility 
+  Mutability 
+  Virtual 
+  Override 
 Custom modifiers (Custom modifiers) 
 
 ### 31、Solidity 提供哪些关键字来测量时间？ 
@@ -327,8 +318,7 @@ block.timestamp：与now关键字类似，返回当前区块的时间戳。
 block.number：返回当前区块的块号。 
   
 now: returns the timestamp (in seconds) of the current block. 
-time units: Solidity provides several units of time, including seconds, minutes, hours, days, 
-weeks and years. These units can be used with numbers, such as 5 minutes or 1 hour. 
+time units: Solidity provides several units of time, including seconds, minutes, hours, days, weeks and years. These units can be used with numbers, such as 5 minutes or 1 hour. 
 block.timestamp: similar to the now keyword, returns the timestamp of the current block. 
 block.number: Returns the block number of the current block. 
 
