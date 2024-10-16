@@ -72,8 +72,8 @@ Solidity provides several access control modifiers, such as public, private, int
 ### What is front running? 
 
 抢跑（front running）是⼀种攻击⾏为，指在⼀笔正常交易等待打包的过程中，抢跑机器⼈通过设置更⾼ Gas 费⽤抢先完成攻击交易。在所有 Front-Running 中，最典型最具危害性的就是针对 
-AMM 交易的 Sandwich Attacks （三明治攻击） 注意：夹⼦交易有时也成三明治攻击，但是它是有矿⼯或验证节点端完成的，能把被攻击的那笔
-交易夹在中间打包区块。
+AMM 交易的 Sandwich Attacks （三明治攻击） 
+注意：夹⼦交易有时也成三明治攻击，但是它是有矿⼯或验证节点端完成的，能把被攻击的那笔交易夹在中间打包区块。
 Front running is a type of attack behavior, which means that while a normal transaction is waiting to be packaged, a front-running bot completes the attack transaction first by setting a 
 higher Gas fee. The most typical and damaging of all Front-Running is Sandwich Attacks on AMM transactions. 
 Note: Sandwich Attacks are sometimes called Sandwich Attacks, but they are done on the miner's or validator's end, and can pack blocks with the attacked transaction in the middle. 
@@ -104,8 +104,7 @@ needs to be protected, such as auctions and bids.
 ### Under what circumstances might abi.encodePacked create a vulnerability? 
 
 abi.encodePacked可能会产⽣漏洞，因为它不会在参数之间添加填充，⽽是将所有参数拼接在⼀起。这可能会导致哈希碰撞，从⽽使攻击者能够伪造交易或执⾏其他恶意操作。例如，如果攻击者知
-道您使⽤abi.encodePacked来编码交易数据，他们可以构造⼀个具有相同哈希值的交易，从⽽欺骗您的智能合约。
-为了避免这种情况，⽤abi.encode来编码交易数据，因为它会在每个参数之间添加填充，以确保每个参数占⽤32个字节。这可以防⽌哈希碰撞，并提⾼智能合约的安全性。 
+道您使⽤abi.encodePacked来编码交易数据，他们可以构造⼀个具有相同哈希值的交易，从⽽欺骗您的智能合约。为了避免这种情况，⽤abi.encode来编码交易数据，因为它会在每个参数之间添加填充，以确保每个参数占⽤32个字节。这可以防⽌哈希碰撞，并提⾼智能合约的安全性。 
 Abi.encodePacked may create vulnerabilities because it does not add padding between parameters, but instead stitches all parameters together. This could lead to hash collisions, 
 which could allow an attacker to forge transactions or perform other malicious operations. For example, if an attacker knows that you use abi.encodePacked to encode transaction data, they 
 can construct a transaction with the same hash value to spoof your smart contract. To avoid this, encode transaction data with abi.encode as it adds padding between each 
