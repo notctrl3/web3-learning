@@ -92,10 +92,21 @@ Bytecode analysis: If you use assert, your code will be smaller because it won't
 ### What is check-effects pattern? 
 
 检查效果（check-effects）模式是⼀种编程模式，⽤于确保函数在执⾏时不会对状态造成意外的影响。在这种模式下，函数应该只读取输⼊参数，并且不应该修改任何状态。如果函数需要修改状
-态，它应该返回⼀个包含所有修改的对象，⽽不是直接修改状态。这种模式可以帮助开发⼈员编写更安全、更可靠的代码，因为它可以减少由于状态修改⽽导致的错误。
+态，它应该返回⼀个包含所有修改的对象，⽽不是直接修改状态。这种模式可以帮助开发⼈员编写更安全、更可靠的代码，因为它可以减少由于状态修改⽽导致的错误。  
 Check-effects mode is a programming pattern that ensures that functions are executed without unintended effects on state. In this mode, the function should only read the input 
-parameters and should not modify any state. If the function needs to modify the state, it should return an object containing all the modifications instead of modifying the state directly. This 
-pattern helps developers write safer and more reliable code because it reduces the number of errors due to state modifications.
+parameters and should not modify any state. If the function needs to modify the state, it should return an object containing all the modifications instead of modifying the state directly. This pattern helps developers write safer and more reliable code because it reduces the number of errors due to state modifications.
+
+```
+Checks-Effects-Interaction - 保证状态完整，再做外部调用
+
+该设计模式是编码风格约束，可有效避免重放攻击。通常情况下，一个函数可能包含三个部分：
+
+Checks：参数验证
+Effects：修改合约状态
+Interaction：外部交互
+
+这个模式要求合约按照Checks-Effects-Interaction的顺序来组织代码。它的好处在于进行外部调用之前，Checks-Effects已完成合约自身状态所有相关工作，使得状态完整、逻辑自洽，这样外部调用就无法利用不完整的状态进行攻击了。
+```
 
 ### 12、运⾏独⽴验证节点所需的最⼩以太数量是多少？ 
 ### What is the minimum amount of Ether required to run a standalone validation node? 
