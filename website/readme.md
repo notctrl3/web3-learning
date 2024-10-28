@@ -4,7 +4,8 @@
 [https://forum.sky.money/](https://forum.sky.money/)     defi论坛  
 [Solidity中文文档](https://docs.soliditylang.org/zh/v0.8.19/index.html)  官方文档的中文翻译  
 [崔棉大师solidity教程](https://space.bilibili.com/286084162)   web3技术教学博主  
-[solidity官方网站](https://docs.soliditylang.org/)  yul，存储布局...
+[solidity官方网站](https://docs.soliditylang.org/)  yul，storage layout...
+[vitalik的博客](https://vitalik.eth.limo/) v's blog, Cutting-edge technical expertise in Web3
 
 ## Frens
 [ai工具](https://lmsys.org/)  免费的ai工具 
