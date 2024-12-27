@@ -38,6 +38,8 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
         unlocked = 1;
     }
 
+    // pack smaller variables together into a single storage slot if their combined size does not exceed 32 bytes
+    // if so, it can reduce gas fee  
     function getReserves() public view returns (uint112 _reserve0, uint112 _reserve1, uint32 _blockTimestampLast) {
         _reserve0 = reserve0;
         _reserve1 = reserve1;
