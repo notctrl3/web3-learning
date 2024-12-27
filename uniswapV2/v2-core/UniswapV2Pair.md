@@ -220,7 +220,49 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
         token1 = _token1;
     }
 ```
+#### reserve0,reserve1,blockTimestampLast
+```
+    // pack smaller variables together into a single storage slot if their combined size does not exceed 32 bytes
+    // reduce gas fee
+    uint112 private reserve0;          
+    uint112 private reserve1;           
+    uint32  private blockTimestampLast;
+```
 ### 主要函数
-#### mint()  
-    通过给地址to铸造流通性代币增加流动性  
+#### mint()     
+transfer token0 and token1 in order to add liquidity.
+   ```
+    if (_totalSupply == 0) {
+        liquidity = Math.sqrt(amount0.mul(amount1)).sub(MINIMUM_LIQUIDITY);
+        _mint(address(0), MINIMUM_LIQUIDITY); // permanently lock the first MINIMUM_LIQUIDITY tokens
+    } else {
+        liquidity = Math.min(amount0.mul(_totalSupply) / _reserve0, amount1.mul(_totalSupply) / _reserve1);
+    }
+    require(liquidity > 0, 'UniswapV2: INSUFFICIENT_LIQUIDITY_MINTED');
+    _mint(to, liquidity);
+   ```
+    
+#### swap()  
+1. Initial Checks: The function first checks for sufficient output amounts and liquidity, ensuring the requested amount0Out and amount1Out are not zero and are less than the current reserves.
+2. Optimistic Transfer: The code then performs an optimistic transfer of the output tokens to the to address. This means it sends the tokens before ensuring the user has provided sufficient input. This is done for gas efficiency.
+3. uniswapV2Call (Flash Swaps): If the data parameter is not empty, it calls the uniswapV2Call function on the to address. This mechanism enables `flash swaps`, where a user can borrow tokens from the pool, perform external actions, and then repay the borrowed amount (plus a small fee) within the same transaction. This is why the balances are checked after this call.
+4. Calculating Input Amounts: After the potential flash swap, the contract checks the current balances of token0 and token1. 
+    ```
+    uint amount0In = balance0 > _reserve0 - amount0Out ? balance0 - (_reserve0 - amount0Out) : 0;
+    uint amount1In = balance1 > _reserve1 - amount1Out ? balance1 - (_reserve1 - amount1Out) : 0;
+    
+    logic:
+    _reserve0 - amount0Out: This represents the expected balance0 if the user had provided the exact amount needed for the swap and nothing more.
+    balance0 > _reserve0 - amount0Out: This checks if the actual balance0 is greater than the expected balance. If it is, it means the user provided more input than strictly necessary.
+    If so then balance0 = _reserve0 + amount0In - amount0Out --> amount0In = balance0 - (_reserve0 - amount0Out)
+    If the actual balance0 is not greater than expected, then amount0In is 0.
+    The same logic applies to calculating amount1In.
+    ```
+5. Fee Application and K Check: The code then applies the 0.3% fee:
+    ```
+    uint balance0Adjusted = balance0.mul(1000).sub(amount0In.mul(3));
+    uint balance1Adjusted = balance1.mul(1000).sub(amount1In.mul(3));
+    ```
+    Notice that the fee is only subtracted from the input amount (amount0In, amount1In), not the total balance. This is because the output amount (amount0Out, amount1Out) already includes the fee implicitly. Finally, the code enforces the constant product invariant (k):require `(balance0Adjusted.mul(balance1Adjusted) >= uint(_reserve0).mul(_reserve1).mul(1000**2), 'UniswapV2: K')`This ensures the product of the adjusted balances (after fees) is greater than or equal to the product of the original reserves (scaled by 1000² to account for the fee calculations). This check ensures the swap maintains the correct price relationship between the two tokens.
+7. Update Reserves: Finally, the `_update` function updates the reserves with the new balance0 and balance1.
     
