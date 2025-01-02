@@ -173,7 +173,7 @@ abstract contract BaseJumpRateModelV2 is InterestRateModel {
 }
 ```
 
-### 核心变量
+### 主要变量
 
 #### multiplierPerBlock
 未到拐点前，借款斜率
@@ -187,7 +187,7 @@ abstract contract BaseJumpRateModelV2 is InterestRateModel {
 #### kink
 借款利率拐点
 
-### 核心函数
+### 主要函数
 
 #### getBorrowRateInternal()
 获取借款利率-拐点型。当资金利用率到达拐点后，借款利率计算公式由`y = k*x + b`转变为`y = k2*(x - p) + (k*p + b)`。其中k，k2，p，b分别为
