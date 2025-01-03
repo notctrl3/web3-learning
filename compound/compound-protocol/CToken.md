@@ -1563,13 +1563,16 @@ contract CEther is CToken {
 审计合约地址
 
 #### totalBorrow
+总借款含利息
 
 #### borrowIndex
 借款指数，初始值为1e18,会根据accrueInterest()每次计算利息时变换，反映了随着时间（区块数）和区块利率的变换
 
 #### totalReserves
+总储备金
 
 #### totalSupply
+总mint的ctoken
 
 ### 主要函数
 
@@ -1589,7 +1592,7 @@ totalCash，totalBorrows， totalReserves，totalSupply分别为目前合约中�
 
 #### accrueInterest()
 
-计算累计的利息，更新总借款,总储备金,借款指数等  
+计算累计的利息，更新总借款，总储备金，借款指数等，会在mint，redeed，borrow，更改储备金,清算时提前调用以便获取最新的利率和借款指数    
 1. compound所有的利率模型都基于区块利率（以太坊中大约15秒产生一个区块），所以先计算当前块和先前块差额,大于 0 时即需计算之前区块产生的利息：
 ```
  blockDelta = currentBlockNumber - accrualBlockNumberPrior
@@ -1604,5 +1607,40 @@ totalCash，totalBorrows， totalReserves，totalSupply分别为目前合约中�
 ```
 
 #### borrow()
+借款  
 
+1. 根据用户借款额,用户借款指数和当前合约借款指数获取用户之前总借款（含利息）
+```
+recentBorrowBalance = borrower.borrowBalance * market.borrowIndex / borrower.borrowIndex
+```
+2. 更新用户当前总借款，用户借款指数,合约总借款。向用户转账
+```
+ accountBorrowsNew = accountBorrowsPrev + accountBorrows
 
+ accountBorrows[borrower].principal = accountBorrowsNew
+ accountBorrows[borrower].interestIndex = borrowIndex
+ totalBorrows = totalBorrowsNew
+ doTransferOut(borrower, borrowAmount)
+```
+
+#### repayBorrow()
+还款  
+1. 根据用户借款额,用户借款指数和当前合约借款指数获取用户之前总借款（含利息）
+```
+recentBorrowBalance = borrower.borrowBalance * market.borrowIndex / borrower.borrowIndex
+```
+2. 更新用户当前总借款，用户借款指数,合约总借款。向用户转账
+```
+ accountBorrowsNew = accountBorrowsPrev - actualRepayAmount
+ totalBorrowsNew = totalBorrows - actualRepayAmount
+
+ accountBorrows[borrower].principal = accountBorrowsNew
+ accountBorrows[borrower].interestIndex = borrowIndex
+ totalBorrows = totalBorrowsNew
+```
+
+#### repayBorrowBehalf()
+代还款  
+
+#### liquidateBorrow()
+清算，当借款任人亏空时任何人都可以调用此函数来担任清算人，清算人帮借款人代还款，并得到借款人所抵押的等值+清算奖励的 cToken 资产
