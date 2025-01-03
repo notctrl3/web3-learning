@@ -1562,6 +1562,15 @@ contract CEther is CToken {
 #### comptroller 
 审计合约地址
 
+#### totalBorrow
+
+#### borrowIndex
+借款指数，初始值为1e18,会根据accrueInterest()每次计算利息时变换，反映了随着时间（区块数）和区块利率的变换
+
+#### totalReserves
+
+#### totalSupply
+
 ### 主要函数
 
 #### exchangeRateStoredInternal()
@@ -1578,4 +1587,22 @@ totalCash，totalBorrows， totalReserves，totalSupply分别为目前合约中�
 #### redeemUnderlying()
 同样是赎回存款的函数，与上一个函数不同的是，该函数指定的是标的资产的数量，会根据兑换率算出需要扣减多少 cToken
 
+#### accrueInterest()
+
+计算累计的利息，更新总借款,总储备金,借款指数等  
+1. compound所有的利率模型都基于区块利率（以太坊中大约15秒产生一个区块），所以先计算当前块和先前块差额,大于 0 时即需计算之前区块产生的利息：
+```
+ blockDelta = currentBlockNumber - accrualBlockNumberPrior
+ simpleInterestFactor = borrowRate * blockDelta
+ interestAccumulated = simpleInterestFactor * totalBorrows
+```
+2. 通过计算得出的累积利息更新合约的总借款额，总储备金,借款指数
+```
+ totalBorrowsNew = interestAccumulated + totalBorrows
+ totalReservesNew = interestAccumulated * reserveFactor + totalReserves
+ borrowIndexNew = simpleInterestFactor * borrowIndex + borrowIndex -> borrwoIndex * （1 + simpleInterestFactor）
+```
+
 #### borrow()
+
+
