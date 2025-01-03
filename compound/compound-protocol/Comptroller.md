@@ -1478,14 +1478,19 @@ contract Comptroller is ComptrollerV7Storage, ComptrollerInterface, ComptrollerE
 ### 主要函数
 #### mintAllowed()  
 是否允许存款
+
 #### redeemAllowed()  
 是否允许取款
+
 #### borrowAllow()  
 是否允许借款
+
 #### repayBorrowAllowed()  
 是否允许还款
+
 #### liquidateBorrowAllowed()  
-是否允许清算
+是否允许清算  
+1. 
 #### seizeAllowed()  
 是否允许清算抵押物
 #### transferAllowed()
