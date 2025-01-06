@@ -1484,14 +1484,32 @@ contract Comptroller is ComptrollerV7Storage, ComptrollerInterface, ComptrollerE
 
 #### borrowAllow()  
 是否允许借款
-
+1. 调用`getHypotheticalAccountLiquidityInternal`判断用户抵押价值是否支持再借足够量
+   
 #### repayBorrowAllowed()  
 是否允许还款
 
 #### liquidateBorrowAllowed()  
 是否允许清算  
-1. 
+
 #### seizeAllowed()  
 是否允许清算抵押物
+
 #### transferAllowed()
 是否允许转账
+
+#### getHypotheticalAccountLiquidityInternal()
+根据用户赎回或者借款的量获取用户流动性
+1. 获取用户所有抵押代币资产
+```
+ CToken[] memory assets = accountAssets[account];
+```
+2. 遍历用户所有抵押代币资产，根据兑换率和用户每种ctoken余量获取原生抵押资产价值，再根据抵押因子和市场价格获取总抵押价值
+```
+sumCollateral = cTokenBanlance * exchangeRate * oraclePrice
+```
+3. 根据总借款额和市场价格获取借入总金额
+```
+sumBorrow = oraclePrice * borrowAmount
+```   
+4. 比较抵押品总价值和借入总金额，计算超出或低于抵押品要求的流动性，并返回相应的值
