@@ -1,1 +1,4 @@
-
+## 
+compound为借贷dfi协议，其为多种underlying（原生资产）提供资金池，包含eth和eip20 token如wbtc。每种underlying对应一种cToken，用户抵押
+underlying后再按照规定的兑换率来获取，例eth对应cEth。compound采用超额抵押来实现借款，协议会根据用户抵押总市场价值和抵押因子（Collateral Factor）
+来确定用户可借出多少份额
