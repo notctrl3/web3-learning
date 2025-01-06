@@ -1566,7 +1566,7 @@ contract CEther is CToken {
 总借款含利息
 
 #### borrowIndex
-借款指数，初始值为1e18,会根据accrueInterest()每次计算利息时变换，反映了随着时间（区块数）和区块利率的变换
+借款指数，初始值为1e18,会根据accrueInterest()每次计算利息时变换，追踪借贷市场利率
 
 #### totalReserves
 总储备金
@@ -1582,10 +1582,15 @@ totalCash，totalBorrows， totalReserves，totalSupply分别为目前合约中�
 的token数
 
 #### mint()
-用户的原生资产转入`cToken`合约中（数据会存储在代理合约中），并根据最新的兑换率将对应的 cToken 代币转到用户钱包地址
+用户的原生资产转入`cToken`合约中（数据会存储在代理合约中），并根据兑换率获取对应的 cToken，更新用户cToken余额，合约总mintToken
+```
+ mintTokens = actualMintAmount / exchangeRate
+ totalSupplyNew = totalSupply + mintTokens
+ accountTokensNew = accountTokens[minter] + mintTokens
+```
 
 #### redeem()
-赎回存款，即用 cToken 换回标的资产，会根据最新的兑换率计算能换回多少标的资产。
+赎回存款，即用 cToken 换回标的资产，会根据兑换率计算能换回多少标的资产。
 
 #### redeemUnderlying()
 同样是赎回存款的函数，与上一个函数不同的是，该函数指定的是标的资产的数量，会根据兑换率算出需要扣减多少 cToken
@@ -1608,12 +1613,12 @@ totalCash，totalBorrows， totalReserves，totalSupply分别为目前合约中�
 
 #### borrow()
 借款  
-
-1. 根据用户借款额,用户借款指数和当前合约借款指数获取用户之前总借款（含利息）
+1. 调用`getHypotheticalAccountLiquidityInternal`根据用户抵押价值判断用户是否能借到borrowAmount
+2. 根据用户借款额,用户借款指数和当前合约借款指数获取用户之前总借款（含利息）
 ```
 recentBorrowBalance = borrower.borrowBalance * market.borrowIndex / borrower.borrowIndex
 ```
-2. 更新用户当前总借款，用户借款指数,合约总借款。向用户转账
+3. 更新用户当前总借款，用户借款指数,合约总借款。向用户转账
 ```
  accountBorrowsNew = accountBorrowsPrev + accountBorrows
 
