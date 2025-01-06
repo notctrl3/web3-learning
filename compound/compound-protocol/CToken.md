@@ -1648,4 +1648,11 @@ recentBorrowBalance = borrower.borrowBalance * market.borrowIndex / borrower.bor
 代还款  
 
 #### liquidateBorrow()
-清算，当借款任人亏空时任何人都可以调用此函数来担任清算人，清算人帮借款人代还款，并得到借款人所抵押的等值+清算奖励的 cToken 资产
+清算，compound中采用代还款清算，当借款任人亏空时`borrowValue > collateralValue * collateral rate`任何人都可以调用此函数来担任清算人，清算人需帮借款人代还款，
+但最多代还50%的份额从而最终得到借款人所抵押的等值+清算奖励的 cToken 资产
+1. 当借款任人亏空时`borrowValue > collateralValue * collateral rate`,可被清算
+2. 清算人可选择抵押资产中的一个来进行代还款，最多为50%份额`closeFactor * borrowBalance`
+3. 计算清算人所获取的ctoken量
+```
+seizeTokens = actualRepayAmount * liquidationIncentive * priceBorrowed / (priceCollateral * exchangeRate)
+```
