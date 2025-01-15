@@ -149,7 +149,7 @@ token数量，确保了添加的流动性与池子的当前状态完全一致。
                 );
             }
 ```
-#### 转账，并校验余额
+#### 5. 转账，并校验余额
 ```
     if (amount0 > 0) balance0Before = balance0();
     if (amount1 > 0) balance1Before = balance1();
@@ -157,7 +157,7 @@ token数量，确保了添加的流动性与池子的当前状态完全一致。
     if (amount0 > 0) require(balance0Before.add(amount0) <= balance0(), 'M0');
     if (amount1 > 0) require(balance1Before.add(amount1) <= balance1(), 'M1');
 ```
-#### 铸造 ERC721 LP凭证给用户，并将position元信息保存起来
+#### 6. 铸造 ERC721 LP凭证给用户，并将position元信息保存起来
 ```
         _mint(params.recipient, (tokenId = _nextId++));
 
