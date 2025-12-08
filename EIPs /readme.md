@@ -6,7 +6,6 @@
 | **ERC1155** | Multi-token 标准    | 支持 NFT + FT 混合          |
 | **ERC777**  | Token 标准升级        | 支持 hooks / operators    |
 | **ERC4626** | Tokenized Vault   | Vault 规范|
-| **ERC1400** | Security Token    | 合规化证券型 Token            |
 
 ## 2️⃣ 签名 / MetaTransaction / Permit
 | EIP/ERC               | 功能                          | 常用场景                     |
@@ -14,7 +13,6 @@
 | **EIP712**            | Typed Data 签名               | MetaTx、Gasless TX、Permit |
 | **ERC2612**           | ERC20 Permit                | 无需 approve，直接用签名授权       |
 | **ERC3009**           | TransferWithAuthorization   | 允许链下签名 + 链上执行            |
-| **ERC2617 / ERC3008** | 类似 Permit / MetaTx 扩展       | 少见，用于特定 MetaTx           |
 | **ERC2771**           | MetaTx / Trusted Forwarder  | Gasless TX，Biconomy 等用   |
 | **ERC1077**           | Gasless TX / Key Management | Smart wallet / meta tx   |
 ## 3️⃣ 升级 / Proxy / 可升级合约
