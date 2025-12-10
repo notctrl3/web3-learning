@@ -29,4 +29,3 @@
 | **ERC1820**         | Interface registry   | 合约接口注册         |
 | **ERC223** | Token transfer hooks |      |
 | **ERC165**          | Interface detection  | ERC721/1155 必备 |
-| **ERC725 / ERC735** | Identity / Claims    | 钱包身份 / KYC 相关  |
