@@ -7,6 +7,7 @@
 [solidity官方网站](https://docs.soliditylang.org/)  yul，storage layout...
 [vitalik的博客](https://vitalik.eth.limo/) v's blog, Cutting-edge technical expertise in Web3  
 [openzeppelin](https://docs.openzeppelin.com/) docs of openzeppelin
+[decipherclub](https://www.decipherclub.com/) solidity知识文章
 
 ## Frens
 [ai工具](https://lmsys.org/)  免费的ai工具 
